@@ -12,7 +12,7 @@ public class MiController {
     }
 
     @PostMapping("/algo")
-    public void postAlgo(){
-        
+    public String postAlgo(){
+        return "e";
     }
 }
