@@ -2,17 +2,18 @@ package PAT.Practica5;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class MiController {
     
-    @GetMapping("/algo")
-    public String getAlgo() {
-        return "a";
+    @GetMapping("/contacto")
+    public String getContacto() {
+        return "Ejecutado con exito";
     }
 
     @PostMapping("/algo")
-    public String postAlgo(){
-        return "e";
+    public Contacto postContacto(@RequestBody Contacto contacto){
+        return contacto;
     }
 }

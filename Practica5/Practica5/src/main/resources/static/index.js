@@ -1,61 +1,75 @@
-const texto_re = /^[a-zA-Z ]*$/;
-const novacio_re = /^(?!\s*$).+/;
-const num_re = /^[0-9]*$/;
 let validateForm = async () => {
     let firstName = $("#firstName");
     console.log(firstName);
-    let resultadoName = texto_re.test(firstName);
-    if (firstName == "" || resultadoName) {
-      alert("Este campo está vacío o incluye símbolos o números.");
+    if (firstName == "") {
+      alert("Por favor introduzca un nombre válido.");
       return false;
     }
     
     let lastName = $("#lastName");
-    let resultadoApellido = texto_re.test(lastName);
-    if (lastName == "" || resultadoApellido) {
-      alert("Este campo está vacío o incluye símbolos o números.");
+    if (lastName == "") {
+      alert("Por favor introduzca un apellido válido.");
       return false;
     }
 
     let email = $("#email");
-    if (!novacio_re.test(email)) {
-      alert("Correo no válido.");
+    if (email == "") {
+      alert("Por favor introduzca un correo electrónico válido.");
       return false;
     }
 
     let address = $("#address");
-    if (!novacio_re.test(address)){
-      alert("Campo obligatorio.");
+    if (address == "") {
+      alert("Por favor introduzca una direccion válida.");
       return false;
     }
 
     let country = $("#country");
-    if (country == "Escoge"){
-      alert("Escoja un país de la lista.");
-      return false;      
+    if (country == "Escoge") {
+      alert("Por favor introduzca un pais válido.");
+      return false;
     }
 
     let state = $("#state");
-    if (!novacio_re.test(state)){
-      alert("Campo obligatorio.");
+    if (state == "") {
+      alert("Por favor introduzca un estado válido.");
       return false;
     }
 
     let zip = $("#zip");
-    if (!num_re.test(zip)){
-      alert("Campo obligatorio.");
-      return false;      
+    if (zip == "") {
+      alert("Por favor introduzca un código postal válido.");
+      return false;
     }
 
     let tarifa = $("#tarifa");
-    if (tarifa == "Escoge"){
-      alert("Escoja una tarifa de la lista.");
-      return false;      
+    if (tarifa == "Escoge") {
+      alert("Por favor introduzca una tarifa válido.");
+      return false;
     }
 
-    let request = await fetch("localhost:8080/algo");
-    if(request.status === 200){
-      console.log("Todo en orden");
+    let request = await fetch("localhost:8080/algo", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            address: address,
+            country: country,
+            state: state,
+            zip: zip,
+            tarifa: tarifa
+        }),
+        dataType: "json",
+    });
+    
+    if(request.ok){
+      alert("Datos enviados");
+      console.log(await request.json);
     }
   }
   $("#btn-submit").on("click", () => {
