@@ -12,7 +12,7 @@ public class MiController {
         return "Ejecutado con exito";
     }
 
-    @PostMapping("/algo")
+    @PostMapping("/contacto")
     public Contacto postContacto(@RequestBody Contacto contacto){
         return contacto;
     }
